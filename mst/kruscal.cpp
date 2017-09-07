@@ -45,6 +45,12 @@ int find_rootnode(int u)							//union find에서 이용할 함수
 	}
 	return parent[u];				 //찾고자 하는것과 parent가 같다면 그것이 root노드이다.
 }
+void weight_union(int u, int v)		//하나의 Tree로 Merge하는 과정
+{
+	if(u > v) parent[u] = v;		//level depth가 깊어지는 걸 막고자 큰 Tree가 무조건 부모가 된다.
+	else	  parent[v] = u;
+	return;
+}
 void union_(int u, int v)
 {
 	chk = false;
@@ -53,8 +59,7 @@ void union_(int u, int v)
 
 	if(u == v)	return; //사이클 되어있는지 여부 확인
 
-	if(u > v)	parent[u] = v;	//하나의 tree로 merge하는 과정이다.
-	else		parent[v] = u;	//큰Tree가 부모로 가야한다. 큰Tree가 자식으로 가면 level depth가 커짐.
+	weight_union(u,v);
 	chk = true;
 	return;
 }
