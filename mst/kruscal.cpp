@@ -39,10 +39,13 @@ int comp(KrusCal v1, KrusCal v2)
 }
 int find_rootnode(int u)							//union find에서 이용할 함수
 {
-	if(u == parent[u])	return u;		//내가 root노드라면 return u
-	return parent[u] = find_rootnode(parent[u]); //자신이 속해 있는 트리에서 root를 찾는다.
+	if(u != parent[u])
+	{
+		return parent[u] = find_rootnode(parent[u]);//내가 root노드가 아니라면 root노드로 올라가는 recursive!
+	}
+	return parent[u];				 //찾고자 하는것과 parent가 같다면 그것이 root노드이다.
 }
-void merge(int u, int v)
+void union_(int u, int v)
 {
 	chk = false;
 	u = find_rootnode(u);
@@ -75,7 +78,7 @@ int main()
 
 	for(int i = 0; i < E; i++)
 	{
-		merge(edge[i].from, edge[i].to);
+		union_(edge[i].from, edge[i].to);
 		if(chk)
 		{
 			res += edge[i].val;			//가중치들의 합을 res에 저장한다.
