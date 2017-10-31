@@ -74,8 +74,8 @@ int main()
 	GRAPH * graph = createGraph(s, e);	//graph 생성
 	
 	if(graph == NULL) return 0;
-    graph->edge[0].start = 0;				// 0에서 
-    graph->edge[0].end = 2;			// 2로 가는 간선의
+	graph->edge[0].start = 0;				// 0에서 
+	graph->edge[0].end = 2;			// 2로 가는 간선의
 	graph->edge[0].weight = 1;			// 가중치는 1로 정한다.
 	 
 	graph->edge[1].start = 0;
