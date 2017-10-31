@@ -20,7 +20,7 @@ int minDistance(int *short_distance, bool *visited)
     return min_index;
 }
 // 시작점에서 그 정점까지의 최단 거리를 출력해준다.
-void printSolution(int short_distance[], int n)
+void printSolution(int *short_distance, int n)
 {
     printf("Vertex   Distance from Source\n");
     for (int i = 0; i < V; i++)
@@ -49,10 +49,9 @@ void dijkstra(int (*graph)[V], int src) //int graph[V][V]로 넘겨도 됨.
         for (int v = 0; v < V; v++)
         {
             // 1. 아직 처리가 되지 않은 노드이어야 하며 (무한루프 방지)
-            // 2. u-v 간에 edge가 존재하고
-            // 3. src부터 u까지의 경로가 존재하고
-            // 4. 기존의 v노드까지의 최단거리 값보다 새로 계산되는 최단거리가 더 짧을 경우
-            if (!visited[v] && graph[u][v] && short_distance[u] != INT_MAX && short_distance[v] > short_distance[u] + graph[u][v])
+            // 2. src부터 u까지의 경로가 존재하고
+            // 3. 기존의 v노드까지의 최단거리 값보다 새로 계산되는 최단거리가 더 짧을 경우
+            if (!visited[v] && short_distance[u] != INT_MAX && short_distance[v] > short_distance[u] + graph[u][v])
             {
                 // 최단거리를 갱신해준다.
                 short_distance[v] = short_distance[u] + graph[u][v];
