@@ -1,13 +1,3 @@
-//입력
-//첫째 줄에 정점의 개수 V(1≤V≤10,000)와 간선의 개수 E(1≤E≤100,000)가 주어진다.
-//다음 E개의 줄에는 각 간선에 대한 정보를 나타내는 세 정수 A, B, C가 주어진다.
-//이는 A번 정점과 B번 정점이 가중치 C인 간선으로 연결되어 있다는 의미이다. C는
-//음수일 수도 있으며, 절대값이 1,000,000을 넘지 않는다.
-
-
-//출력
-//첫째 줄에 최소 스패닝 트리의 가중치를 출력한다.
-
 //예제입력
 //3 3
 //1 2 1
@@ -41,14 +31,14 @@ int find_rootnode(int u)							//union find에서 이용할 함수
 {
 	if(u != parent[u])
 	{
-		return parent[u] = find_rootnode(parent[u]);//내가 root노드가 아니라면 root노드로 올라가는 recursive!
+		return find_rootnode(parent[u]);//내가 root노드가 아니라면 root노드로 올라가는 recursive!
 	}
 	return parent[u];				 //찾고자 하는것과 parent가 같다면 그것이 root노드이다.
 }
 void weight_union(int u, int v)		//하나의 Tree로 Merge하는 과정
 {
-	if(u > v) parent[u] = v;		//level depth가 깊어지는 걸 막고자 큰 Tree가 무조건 부모가 된다.
-	else	  parent[v] = u;
+	if(u > v) parent[v] = u;		//level depth가 깊어지는 걸 막고자 큰 Tree가 무조건 부모가 된다.
+	else	  parent[u] = v;
 	return;
 }
 void union_(int u, int v)
