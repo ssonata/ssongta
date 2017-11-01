@@ -24,25 +24,25 @@ void bfs(int _x, int _y)
 {
 	int pos = 0;
 	enqueue(_x, _y, 1);
-	while(pos < cnt && (x[pos] != MAX - 1 || y[pos] != MAX - 1)) //끝지점이 나올때 까지 loop돌기
+	while((x[pos] != MAX - 1 || y[pos] != MAX - 1)) //끝지점이 나올때 까지 loop돌기
 	{
-		graph[y[pos]][x[pos]] = 0;//두 번 방문하면 안되므로, 이미 지나갔다는 표시
-
-		if(y[pos] > 0 && graph[y[pos] - 1][x[pos]] == 1)// 위로 갈 수 있다면(전제: y[pos]는 > 0 까지 밖에 못간다.)
+		graph[x[pos]][y[pos]] = 0;//두 번 방문하면 안되므로, 이미 지나갔다는 표시
+		cout<<"["<<x[pos]<<","<<y[pos]<<"]"<<endl;
+		if(x[pos] > 0 && graph[x[pos] - 1][y[pos]] == 1)// 위로 갈 수 있다면(전제: x[pos]는 > 0 까지 밖에 못간다.)
 		{
-			enqueue(x[pos], y[pos] - 1, path[pos] + 1);
+			enqueue(x[pos] - 1, y[pos], path[pos] +1);
 		}
-		if(x[pos] > 0 && graph[y[pos]][x[pos] - 1] == 1) //왼쪽으로 갈 수 있다면(전제:x[pos]-1이 배열안에 있으므로 x[pos] > 0)
+		if(y[pos] > 0 && graph[x[pos]][y[pos] -1] == 1) //왼쪽으로 갈 수 있다면(전제:y[pos]-1이 배열안에 있으므로 y[pos] > 0)
 		{
-			enqueue(x[pos] - 1, y[pos], path[pos] + 1);
+			enqueue(x[pos], y[pos] -1, path[pos] +1);
 		}
-		if(y[pos] < MAX - 1 && graph[y[pos] + 1][x[pos]] == 1)//밑으로 갈 수 있다면(전제: y는 MAX -1까지 밖에 못간다.)
+		if(x[pos] < MAX -1 &&graph[x[pos] + 1][y[pos]] == 1)//밑으로 갈 수 있다면(전제: x는 MAX -1까지 밖에 못간다.)
 		{
-			enqueue(x[pos], y[pos] + 1, path[pos] + 1);
+			enqueue(x[pos] +1, y[pos], path[pos] + 1);
 		}
-		if(x[pos] < MAX - 1 && graph[y[pos]][x[pos] + 1] == 1) // 오른쪽으로 갈 수 있다면(전제: x는 MAX-1까지밖에 못간다.)
+		if(y[pos] < MAX -1 && graph[x[pos]][y[pos] + 1] == 1) // 오른쪽으로 갈 수 있다면(전제: y는 MAX-1까지밖에 못간다.)
 		{
-			enqueue(x[pos] + 1, y[pos], path[pos] + 1);
+			enqueue(x[pos], y[pos] +1, path[pos] + 1);
 		}
 		pos++;
 	}
