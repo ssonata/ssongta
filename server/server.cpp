@@ -9,6 +9,7 @@ using namespace std;
 int main()
 {
 	int server_socket = socket(PF_INET,SOCK_STREAM,0);
+	int sock_opt;
 	struct sockaddr_in server_address;
 	struct sockaddr_in client_address;
 
@@ -16,7 +17,13 @@ int main()
 	server_address.sin_addr.s_addr = inet_addr("192.168.38.199");
 	server_address.sin_port = htons(8000);
 
+	if(setsockopt(client_socket,SOL_SOCKET,SO_REUSEADDR,&sock_opt,sizeof(sock_opt)) == -1)
+	{
+		cout<<"setsockopt is error"<<endl;
+		exit(-1);
+	}
 	bind(server_socket, (struct sockaddr*)&server_address, sizeof(server_address));
+
 	if(listen(server_socket, 5) == -1)
 	{
 		cout<<"listen is error"<<endl;
@@ -26,13 +33,7 @@ int main()
 	{
 		unsigned int client_size = sizeof(client_address);
 		int client_socket = accept(server_socket,(struct sockaddr*)&client_address, &client_size);
-		int sock_opt;
 
-		if(setsockopt(client_socket,SOL_SOCKET,SO_REUSEADDR,&sock_opt,sizeof(sock_opt)) == -1)
-		{
-			cout<<"setsockopt is error"<<endl;
-			exit(-1);
-		}
 		if(client_socket == -1)
 		{
 			cout<<"client accpet is error"<<endl;
