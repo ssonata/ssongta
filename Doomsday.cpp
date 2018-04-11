@@ -38,7 +38,7 @@ WEEK check_DoomsDay(int year, int referenceDay)
 	int quotient = (remainder / 12);  // 12로 나눈 몫 구하기
 	remainder = (remainder % 12);    // 12로 나눈 나머지 구하기
 	int quotient2 = (remainder / 4);     // 구한 나머지를 4로 나눈 몫 구하기
-    int m_remainder = ((quotient + quotient2 + remainder) % 7);  // mok + q + mok2를 더해서 1주일을 의미하는 7로 나눈 나머지구하기
+	int m_remainder = ((quotient + quotient2 + remainder) % 7);  // mok + q + mok2를 더해서 1주일을 의미하는 7로 나눈 나머지구하기
 	
 	return (WEEK)((referenceDay + m_remainder) % 7); //기준 Doomsday(reqDay)에 output_q를 더하면 내가 입력한 year의 둠스데이가 나온다.
 }
