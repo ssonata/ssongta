@@ -32,15 +32,15 @@ bool check_leapYear(int year)
 	return leapYear;
 }
 
-WEEK check_DoomsDay(int year, int refDay)
+WEEK check_DoomsDay(int year, int referenceDay)
 {
-	int tmp = (year % 100); // 0~ 99구하기(2008년이면 8을 구하기)
-	int mok = (tmp / 12);  // 12로 나눈 몫 구하기
-	int q = (tmp % 12);    // 12로 나눈 나머지 구하기
-	int mok2 = (q / 4);     // 구한 나머지를 4로 나눈 몫 구하기
-    int output_q = ((mok + q + mok2) % 7);  // mok + q + mok2를 더해서 1주일을 의미하는 7로 나눈 나머지구하기
+	int remainder = (year % 100); // 0~ 99구하기(2008년이면 8을 구하기)
+	int quotient = (remainder / 12);  // 12로 나눈 몫 구하기
+	remainder = (remainder % 12);    // 12로 나눈 나머지 구하기
+	int quotient2 = (remainder / 4);     // 구한 나머지를 4로 나눈 몫 구하기
+    int m_remainder = ((quotient + quotient2 + remainder) % 7);  // mok + q + mok2를 더해서 1주일을 의미하는 7로 나눈 나머지구하기
 	
-	return (WEEK)((refDay + output_q) % 7); //기준 Doomsday(reqDay)에 output_q를 더하면 내가 입력한 year의 둠스데이가 나온다.
+	return (WEEK)((referenceDay + m_remainder) % 7); //기준 Doomsday(reqDay)에 output_q를 더하면 내가 입력한 year의 둠스데이가 나온다.
 }
 
 WEEK check_ReferenceDay(int year)
@@ -73,25 +73,25 @@ WEEK calculate(int leapYear, int month, int day, int DoomsDay)
 	inputday += day;
 
 //  DoomsDay에 여러개가 있으나 그 중 6월6일 DoomsDay를 구하는 logic
-	int defaultDay = 0;
+	int defaultDoomsDay = 0;
 	for(int j = 0; j < 5; j++)
 	{
-		defaultDay += allMonth[j];
+		defaultDoomsDay += allMonth[j];
 	}
-	defaultDay += 6;
+	defaultDoomsDay += 6;
 
 //  diffDay를 구하는 logic
-	int diffDay = abs(defaultDay - inputday) % 7;
+	int diffDay = abs(defaultDoomsDay - inputday) % 7;
 	return (WEEK)(DoomsDay + diffDay);
 }
 int main()
 {
 	int year,month,day;
-	cout<<"년도를 적으시오";
+	cout<<"년도를 적으시오. ";
 	cin >> year;
-	cout<<"월을  적으시오";
+	cout<<"월을  적으시오. ";
 	cin >> month;
-	cout<<"일을  적으시오";
+	cout<<"일을  적으시오. ";
 	cin >> day;
 
 	int ReferenceDay = check_ReferenceDay(year);        //1800,1900,2000,2100년 등 기준데이를 잡는 API
@@ -108,25 +108,25 @@ int main()
 	cout<< endl << "해당 요일은 :";                        //출력
 	switch(output)
 	{
-		case 0:
+		case WEEK::MON:
 			cout<<"월요일"<<endl;
 			break;
-		case 1:
+		case WEEK::TUE:
 			cout<<"화요일"<<endl;
 			break;
-		case 2:
+		case WEEK::WEN:
 			cout<<"수요일"<<endl;
 			break;
-		case 3:
+		case WEEK::THU:
 			cout<<"목요일"<<endl;
 			break;
-		case 4:
+		case WEEK::FRI:
 			cout<<"금요일"<<endl;
 			break;
-		case 5:
+		case WEEK::SAT:
 			cout<<"토요일"<<endl;
-			break;
-		case 6:
+				break;
+		case WEEK::SUN:
 			cout<<"일요일"<<endl;
 			break;
 		default:
