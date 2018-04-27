@@ -15,7 +15,7 @@ typedef struct kruscal
 {
 	int from;
 	int to;
-	int val;
+	int weight;
 }KrusCal;
 vector<KrusCal> edge;
 
@@ -25,7 +25,7 @@ int chk;
 
 int comp(KrusCal v1, KrusCal v2)
 {
-	return v1.val < v2.val;
+	return v1.weight < v2.weight;
 }
 int find_rootnode(int u)							//union find에서 이용할 함수
 {
@@ -65,7 +65,7 @@ int main()
 	for(int i = 0; i < E; i++)			//간선에 해당하는 값을 vector에 넣는다.
 	{
 		KrusCal kc;
-		cin >> kc.from >> kc.to >> kc.val;
+		cin >> kc.from >> kc.to >> kc.weight;
 		edge.push_back(kc);
 	}
 
@@ -76,7 +76,7 @@ int main()
 		union_(edge[i].from, edge[i].to);
 		if(chk)
 		{
-			res += edge[i].val;			//가중치들의 합을 res에 저장한다.
+			res += edge[i].weight;			//가중치들의 합을 res에 저장한다.
 		}
 	}
 	cout<<res<<endl;
