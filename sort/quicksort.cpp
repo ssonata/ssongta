@@ -6,7 +6,7 @@ int partition(int *A, int p, int r)
 {
 	x = A[r]; // x is pivot
 	i = p - 1;
-	for(int j = p; j < r; j++) // j is more than i. so j start p and i start p -1
+	for(int j = p; j < r; j++) // j is more bigger than i. so j start p and i start p -1
 	{
 		if(A[j] <= x) // pivot is bigger than current value ?
 		{
